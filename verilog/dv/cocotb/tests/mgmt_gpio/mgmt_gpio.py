@@ -164,3 +164,41 @@ async def mgmt_gpio_bidir(dut):
         cocotb.log.info(f"[TEST] recieved the correct number of blinks {num_blinks}")
     else: 
         cocotb.log.error(f"[TEST] recieved the incorrect number of blinks recieved = {recieved_blinks} expected = {num_blinks}")
+
+
+
+@cocotb.test()
+@repot_test
+async def mgmt_gpio_pu_pd(dut):
+    caravelEnv,clock = await test_configure(dut,timeout_cycles=112487)
+    cpu = RiskV(dut)
+    cpu.cpu_force_reset()
+    cpu.cpu_release_reset()
+    cocotb.log.info(f"[TEST] Start mgmt_gpio_pu_pd test")  
+    pad_in = dut.uut.padframe.gpio_pad.gpiov2_base.PAD
+    dm = dut.uut.padframe.gpio_pad.gpiov2_base.dm_final
+    reg_gpio_out = dut.uut.soc.core.gpio_out_pad
+    await wait_reg1(cpu,caravelEnv,0X1B)
+    if pad_in.value.binstr == '1': 
+        cocotb.log.info(f"[TEST] correct pull-up {pad_in.value} when reg_gpio_out = {reg_gpio_out.value} and dm = {hex(dm.value)} ")
+    else: 
+        cocotb.log.error(f"[TEST] incorrect pull-up {pad_in.value}when reg_gpio_out = {reg_gpio_out.value} and dm = {hex(dm.value)} ")
+    
+    await wait_reg1(cpu,caravelEnv,0X2B)
+    if pad_in.value.binstr == '0': 
+        cocotb.log.error(f"[TEST] incorrect  pull-up {pad_in.value}when reg_gpio_out = {reg_gpio_out.value} and dm = {hex(dm.value)} ")
+    else: 
+        cocotb.log.info(f"[TEST] incorrect pull-up {pad_in.value}when reg_gpio_out = {reg_gpio_out.value} and dm = {hex(dm.value)} ")
+    
+    await wait_reg1(cpu,caravelEnv,0X3B)
+    if pad_in.value.binstr == '0': 
+        cocotb.log.info(f"[TEST] correct pull-down {pad_in.value} when reg_gpio_out = {reg_gpio_out.value} and dm = {hex(dm.value)} ")
+    else: 
+        cocotb.log.error(f"[TEST] incorrect pull-down {pad_in.value} when reg_gpio_out = {reg_gpio_out.value} and dm = {hex(dm.value)} ")
+    
+    await wait_reg1(cpu,caravelEnv,0X4B)
+    if pad_in.value.binstr == '1': 
+        cocotb.log.error(f"[TEST] incorrect  pull-down {pad_in.value} when reg_gpio_out = {reg_gpio_out.value} and dm = {hex(dm.value)} ")
+    else: 
+        cocotb.log.info(f"[TEST] incorrect pull-down {pad_in.value} when reg_gpio_out = {reg_gpio_out.value} and dm = {hex(dm.value)} ")
+

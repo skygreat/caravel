@@ -266,7 +266,7 @@ module chip_io(
     	);
 
 	wire [2:0] dm_all =
-    		{gpio_mode1_core, gpio_mode1_core, gpio_mode0_core};
+    		{~gpio_mode1_core, gpio_mode1_core, gpio_mode0_core};
 	wire[2:0] flash_io0_mode =
 		{flash_io0_ieb_core, flash_io0_ieb_core, flash_io0_oeb_core};
 	wire[2:0] flash_io1_mode =
