@@ -15,7 +15,7 @@ b38b8911910265a96d8248095964a5ee8139820b  verilog/rtl/caravel.v
 1bbaa93405d4cb51429eacea4da40014231b11ed  verilog/rtl/caravel_motto.v
 3b9185fd0dc2d0e8c49f1af3d14724e0948fe650  verilog/rtl/caravel_openframe.v
 d97cb60c8d125d6098111d4f0aa00410515770eb  verilog/rtl/caravel_power_routing.v
-bc1e961e41d1d3a383a018279a08bf4108911f53  verilog/rtl/chip_io.v
+7dfc50f615950278d5cfe4d8919621463460286b  verilog/rtl/chip_io.v
 f2242e1f295ee5efeacea51698f706a2cfd97c28  verilog/rtl/chip_io_alt.v
 126aff02aa229dc346301c552d785dec76a4d68e  verilog/rtl/clock_div.v
 941bd7636e7558b045faa3d8c6ba2d91b4c4b798  verilog/rtl/constant_block.v
